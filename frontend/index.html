@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LifeFlow</title><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="style.css"></head><body>
+<div id="login" class="login"><div class="card"><svg class="drop" viewBox="0 0 40 52"><path d="M20 2C20 2 3 24 3 34a17 17 0 0034 0C37 24 20 2 20 2z"/></svg>
+<h1>LifeFlow</h1><p class="muted">Blood bank and donor connect</p>
+<input id="em" placeholder="Email" value="donor@lifeflow.test"><div class="pw"><input id="pw" type="password" placeholder="Password" value="Passw0rd!"><button class="ghost" onclick="pw.type=pw.type=='password'?'text':'password'">Show</button></div>
+<button onclick="doLogin()">Log in</button><button class="ghost" onclick="showReg()">Create account</button><p id="lerr" class="err"></p>
+<hr><b>Check blood availability</b><div class="row"><select id="pg"><option value="">Any group</option></select><button class="ghost" onclick="pubSearch()">Search</button></div><div id="pres" class="muted"></div>
+<p class="muted small">Demo logins (password Passw0rd!): admin@ / staff@ / hospital@ / donor@lifeflow.test</p></div></div>
+<div id="app" hidden><aside id="side"></aside><main><header><span id="who"></span><span><button class="ghost" onclick="document.body.classList.toggle('dark')">Light / dark</button><button class="ghost" onclick="logout()">Log out</button></span></header><section id="main"></section></main></div>
+<script src="app.js"></script></body></html>
