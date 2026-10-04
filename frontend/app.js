@@ -8,7 +8,7 @@ const act=(fn,...a)=>fn(...a).then(()=>NAV.find(n=>n.on)?.go()).catch(e=>alert(e
 function table(rows,cols,btns){if(!rows.length)return'<p class="muted">Nothing here yet.</p>';
  return`<div class="wrap"><table><tr>${cols.map(c=>`<th>${c}</th>`).join("")}${btns?"<th></th>":""}</tr>${rows.map(r=>`<tr>${cols.map(c=>`<td>${esc(r[c])}</td>`).join("")}${btns?`<td>${btns(r)}</td>`:""}</tr>`).join("")}</table></div>`}
 async function doLogin(){try{const j=await api("/login","POST",{email:$("em").value,password:$("pw").value});T=localStorage.lf_t=j.access_token;R=localStorage.lf_r=j.role;$("who").textContent=j.name+" ("+j.role+")";start()}catch(e){$("lerr").textContent=e.message}}
-function logout(){localStorage.clear();T=R=null;$("app").hidden=true;$("login").hidden=false}
+function logout(){localStorage.clear();T=R=null;$("app").hidden=true;$("login").hidden=false;$("login").style.display=""}
 async function pubSearch(){const r=await api("/public/availability?group="+encodeURIComponent($("pg").value));$("pres").innerHTML=r.length?r.map(x=>`${x.group} ${x.component}: ${x.units} unit(s)`).join("<br>"):"No verified stock found."}
 function showReg(){const n=prompt("Full name");if(!n)return;const role=prompt("Role: donor, hospital or staff","donor");const bg=role=="donor"?prompt("Blood group (e.g. O+)"):"";
  api("/register","POST",{email:$("em").value,password:$("pw").value,name:n,role,blood_group:bg,city:"Chennai",consent:role=="donor"&&confirm("Allow emergency donation alerts?")}).then(j=>alert(j.message+" Use the email and password you typed above.")).catch(e=>alert(e.message))}
@@ -32,7 +32,7 @@ async function reqs(){const r=await api("/requests"),st=R=="staff";view("<h2>Blo
 async function lookup(){try{const u=await api("/units/qr/"+$("q").value.trim());$("qr").innerHTML=table([u],["uid","group","component","status","location","expiry"])+"<h3>History</h3>"+table(u.history,["at","action","detail"])}catch(e){$("qr").innerHTML=`<p class=err>${e.message}</p>`}}
 async function hs(){const r=await api("/public/availability?group="+encodeURIComponent($("sg").value));$("sr").innerHTML=table(r,["group","component","units"])+'<p class="muted small">Final compatibility is verified by qualified clinical staff.</p>'}
 async function newReq(){try{await api("/requests","POST",{group:rg.value,component:rc.value,qty:+rq.value,urgency:ru.value,patient_ref:rp.value});alert("Request sent.");NAV[2].go()}catch(e){alert(e.message)}}
-async function start(){$("login").hidden=true;$("app").hidden=false;if(!$("who").textContent){const m=await api("/me");$("who").textContent=m.name+" ("+m.role+")"}
+async function start(){$("login").hidden=true;$("login").style.display="none";$("app").hidden=false;if(!$("who").textContent){const m=await api("/me");$("who").textContent=m.name+" ("+m.role+")"}
  NAV=NAVS[R].map(([n,f])=>({n,f,go(){NAV.forEach(x=>x.on=0);this.on=1;[...$("side").querySelectorAll("a")].forEach(a=>a.classList.toggle("on",a.textContent==this.n));f().catch(e=>view(`<p class=err>${e.message}</p>`))}}));
  $("side").innerHTML="<h2>LifeFlow</h2>";NAV.forEach(x=>{const a=document.createElement("a");a.textContent=x.n;a.onclick=()=>x.go();$("side").append(a)});NAV[0].go()}
 if(T&&R)start().catch(logout);
