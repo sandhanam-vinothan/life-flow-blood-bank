@@ -36,3 +36,6 @@ async function start(){$("login").hidden=true;$("login").style.display="none";$(
  NAV=NAVS[R].map(([n,f])=>({n,f,go(){NAV.forEach(x=>x.on=0);this.on=1;[...$("side").querySelectorAll("a")].forEach(a=>a.classList.toggle("on",a.textContent==this.n));f().catch(e=>view(`<p class=err>${e.message}</p>`))}}));
  $("side").innerHTML="<h2>LifeFlow</h2>";NAV.forEach(x=>{const a=document.createElement("a");a.textContent=x.n;a.onclick=()=>x.go();$("side").append(a)});NAV[0].go()}
 if(T&&R)start().catch(logout);
+
+function toggleTheme(){document.body.classList.toggle('dark');localStorage.lf_theme=document.body.classList.contains('dark')?'dark':'light';if(chart){try{NAV.find(n=>n.on)?.go()}catch(e){}}}
+if(localStorage.lf_theme==='dark'||(!localStorage.lf_theme&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark');

@@ -1,11 +1,42 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LifeFlow</title><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link rel="stylesheet" href="style.css"></head><body>
-<div id="login" class="login"><div class="card"><svg class="drop" viewBox="0 0 40 52"><path d="M20 2C20 2 3 24 3 34a17 17 0 0034 0C37 24 20 2 20 2z"/></svg>
-<h1>LifeFlow</h1><p class="muted">Blood bank and donor connect</p>
-<input id="em" placeholder="Email" value="donor@lifeflow.test"><div class="pw"><input id="pw" type="password" placeholder="Password" value="Passw0rd!"><button class="ghost" onclick="pw.type=pw.type=='password'?'text':'password'">Show</button></div>
-<button onclick="doLogin()">Log in</button><button class="ghost" onclick="showReg()">Create account</button><p id="lerr" class="err"></p>
-<hr><b>Check blood availability</b><div class="row"><select id="pg"><option value="">Any group</option></select><button class="ghost" onclick="pubSearch()">Search</button></div><div id="pres" class="muted"></div>
-<p class="muted small">Demo logins (password Passw0rd!): admin@ / staff@ / hospital@ / donor@lifeflow.test</p></div></div>
-<div id="app" hidden><aside id="side"></aside><main><header><span id="who"></span><span><button class="ghost" onclick="document.body.classList.toggle('dark')">Light / dark</button><button class="ghost" onclick="logout()">Log out</button></span></header><section id="main"></section></main></div>
-<script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e5092f">
+  <title>LifeFlow Blood Bank</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="login" class="login-shell">
+  <div class="login-orb orb-one"></div><div class="login-orb orb-two"></div>
+  <section class="login-visual">
+    <div class="brand"><span class="brand-drop">♥</span><span><b>LifeFlow</b><small>Blood Bank</small></span></div>
+    <div class="blood-scene" aria-hidden="true"><img src="blood-cells.png" alt=""></div>
+    <div class="hero-copy"><span class="eyebrow">DONATE • CONNECT • SAVE</span><h1>A small drop makes a <em>big difference.</em></h1><p>One secure platform connecting donors, hospitals and blood-bank teams when every second matters.</p></div>
+    <div class="trust-row"><span>♥ <b>Safe Donation</b></span><span>✚ <b>Connected Care</b></span><span>◉ <b>Live Stock</b></span></div>
+  </section>
+  <section class="login-panel-wrap">
+    <button class="theme-fab" onclick="toggleTheme()" title="Light / dark theme"><span class="sun">☀</span><span class="moon">☾</span></button>
+    <div class="login-card glass">
+      <div class="mobile-brand"><span class="brand-drop">♥</span><b>LifeFlow</b></div>
+      <span class="eyebrow">WELCOME BACK</span><h2>Sign in to LifeFlow</h2><p class="muted">Access your secure blood-bank workspace.</p>
+      <label>Email address</label><div class="field"><span>✉</span><input id="em" placeholder="Email" value="donor@lifeflow.test"></div>
+      <label>Password</label><div class="field"><span>⌑</span><input id="pw" type="password" placeholder="Password" value="Passw0rd!"><button class="icon-btn" onclick="pw.type=pw.type=='password'?'text':'password'" title="Show password">◉</button></div>
+      <button class="primary login-btn" onclick="doLogin()">Log in <span>→</span></button>
+      <button class="outline" onclick="showReg()">Create account</button><p id="lerr" class="err"></p>
+      <div class="availability glass-soft"><div><b>Check blood availability</b><small>Search verified stock instantly</small></div><div class="row"><select id="pg"><option value="">Any group</option></select><button class="compact" onclick="pubSearch()">Search</button></div><div id="pres" class="muted small"></div></div>
+      <p class="demo muted small">Demo password: <b>Passw0rd!</b> · donor@lifeflow.test</p>
+    </div>
+  </section>
+</div>
+<div id="app" hidden>
+  <aside id="side"></aside>
+  <main>
+    <header class="glass app-header"><div><span class="header-kicker">LIFEFLOW WORKSPACE</span><strong id="who"></strong></div><span class="header-actions"><button class="theme-toggle" onclick="toggleTheme()"><span>☀</span><span>☾</span></button><button class="logout-btn" onclick="logout()">↪ <span>Log out</span></button></span></header>
+    <section id="main"></section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body></html>

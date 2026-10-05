@@ -1,0 +1,1 @@
+Replace the files inside your LifeFlow frontend folder with these files.\nThis update uses your blood-cell PNG on the login page with floating and glow animations.\n

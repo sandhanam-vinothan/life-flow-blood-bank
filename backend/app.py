@@ -111,6 +111,10 @@ def login(b: Login, s: Session = Depends(db)):
     tok = jwt.encode({"sub": str(u.id), "exp": now() + dt.timedelta(hours=8)}, KEY, algorithm="HS256")
     return {"access_token": tok, "token_type": "bearer", "role": u.role, "name": u.name}
 
+@app.get("/api/health")
+def health():
+    return {"ok": True, "service": "lifeflow"}
+
 @app.get("/api/me")
 def me(u: User = Depends(user)):
     return {"id": u.id, "name": u.name, "email": u.email, "role": u.role, "city": u.city, "blood_group": u.blood_group, "consent": u.consent}
